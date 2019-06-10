@@ -7,6 +7,7 @@ __date__ = '2019/06/06'
 from tkinter import *
 import jsonpath
 import json
+import tkinter.font as tkfont
 
 
 
@@ -83,8 +84,8 @@ frame.pack()
 
 #json的窗口
 json_frame = Frame(frame)
-label = Label(json_frame, text="在线JsonPath调试", bg="black",fg="white", font=("Arial",15), width=900, height=3,anchor="w").pack()
-json_text = Text(json_frame, width=win_width, height=win_height*0.05)
+label = Label(json_frame, text="在线JsonPath调试", bg="black",fg="white", font=("微软雅黑",15,"bold"), width=win_width, height=3,anchor="w").pack()
+json_text = Text(json_frame, width=win_width, height=25,font=("微软雅黑",10))
 scroll = Scrollbar(json_frame)
 # 将滚动条填充
 scroll.pack(side=RIGHT,fill=Y)
@@ -100,9 +101,9 @@ pattern_frame = Frame(frame)
 jsonpath_label = Label()
 jsonpath_str = Variable() # 绑定变量
 jsonpath_str.set("jsonpath表达式")
-pattern = Entry(pattern_frame,width=int(win_width*0.03),textvariable=jsonpath_str).pack(side=LEFT)
-gs_btn = Button(pattern_frame,text="Beautiful JSON",command=beauti_json)
-btn = Button(pattern_frame,text="调试",command=get_result)
+pattern = Entry(pattern_frame,width=int(win_width*0.03),textvariable=jsonpath_str,font=("微软雅黑",12)).pack(side=LEFT)
+gs_btn = Button(pattern_frame,text="Beautiful JSON",command=beauti_json,font=("微软雅黑",12,"bold"))
+btn = Button(pattern_frame,text="调试",command=get_result,font=("微软雅黑",12,"bold"))
 gs_btn.pack(padx=10)
 gs_btn.pack(side=RIGHT)
 btn.pack(padx=10)
@@ -111,8 +112,15 @@ pattern_frame.pack(side=TOP)
 
 #匹配结果窗口
 result_frame = Frame(frame)
-result_text = Text(result_frame,width=win_width, height=50)
+result_text = Text(result_frame,width=win_width, height=50,font=("微软雅黑",10))
 result_text.insert("1.0","匹配结果在此展示")
-result_text.pack(side=TOP)
+scroll = Scrollbar(result_frame)
+# 将滚动条填充
+scroll.pack(side=RIGHT,fill=Y)
+result_text.pack(side=LEFT,fill=Y)
+# 将滚动条与文本框关联
+scroll.config(command=result_text.yview) # 将文本框关联到滚动条上，滚动条滑动，文本框跟随滑动
+result_text.config(yscrollcommand=scroll.set) # 将滚动条关联到文本框
+
 result_frame.pack(side=TOP)
 window.mainloop()
