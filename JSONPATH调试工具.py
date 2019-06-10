@@ -22,7 +22,7 @@ def get_value(source_str,pattern):
         write_result("JSONPATH表达式格式错误!")
         raise Exception("JSONPATH表达式格式错误!")
     result = jsonpath.jsonpath(source_str, pattern)
-    return result[0] if result else None
+    return result if result else None
 
 def write_result(msg):
     '''
@@ -47,7 +47,7 @@ def get_result():
         jsonstr = json.loads(jsonstr)
         try:
             result = get_value(jsonstr,jsonpath_str.get())
-            write_result("匹配到如下结果:\n\n{}".format(result if result!=None else "null"))
+            write_result("匹配到如下结果:\n\n{}".format('\n'.join(result) if result!=None else "null"))
         except Exception as e:
             write_result("出现异常啦~~异常原因:{}".format(e))
     except Exception as e:
