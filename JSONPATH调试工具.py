@@ -47,7 +47,7 @@ def get_result():
         jsonstr = json.loads(jsonstr)
         try:
             result = get_value(jsonstr,jsonpath_str.get())
-            write_result("匹配到如下结果:\n\n{}".format('\n'.join(result) if result!=None else "null"))
+            write_result("匹配到如下结果,共{}条记录:\n\n{}".format(len(result) if result!=None else 0,'\n'.join(result) if result!=None else "null"))
         except Exception as e:
             write_result("出现异常啦~~异常原因:{}".format(e))
     except Exception as e:
